@@ -1,0 +1,26 @@
+{{#features}}
+<li class="item">
+    <h4>{{nom_vern}}</h4>
+    <i><a href="https://clicnat.fr/espece/{{cd_nom}}">{{lb_nom}}</a></i>
+
+    <br><br>
+
+    <p><span id="etat_badge{{unique_id_sinp}}" style="text-transform: uppercase;font-size:115%">{{etat}}</span><p>
+    <p style='font-size:120%'>  Trouvé le <b  id=observation_date{{unique_id_sinp}}>{{date}}</b> </p>
+
+</li>
+
+<script>
+    var raw_date = new Date('{{date}}');
+    var formated_date = raw_date.getDate()+'/'+('0'+(raw_date.getMonth()+1)).slice(-2)+'/'+raw_date.getFullYear();
+    var label_classe={
+        'mort':'danger',
+        'posé':'success',
+        'échoué vivant': 'warning'};
+    
+    $('#observation_date{{unique_id_sinp}}').html(formated_date);
+    $('#etat_badge{{unique_id_sinp}}').attr('class',"label label-"+label_classe['{{etat}}']);
+</script>
+{{/features}}
+
+

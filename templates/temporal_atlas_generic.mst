@@ -1,0 +1,35 @@
+{{#features}}
+    <li> Secteur : {{area_code}}</li>
+    <li>Nombre d'espèces connues : <span class="badge badge-big">{{n_sp}}</span> <hr /> </li>
+    <span class="sp_list" id='data_espece_{{id_atlas}}'></span>
+    <script>
+        var data_espece={{{detail_especes}}};
+        data_espece.sort(function(a,b){
+                return a.nom_vern > b.nom_vern;
+            });
+        var html_list_sp='';
+        data_espece.forEach(function(item){
+           if(item){ 
+                html_list_sp+='<li>- '+
+                                '<a href=https://clicnat.fr/espece/'+item.cd_nom.toString()+' target=_blank>'+
+                                   (item.nom_vern || '') +
+                                   ' (<i>'+item.lb_nom+'</i>)'+
+                                '</a>'+
+                             '</li>';
+                 };
+            });
+        $('#data_espece_{{id_atlas}}').html(html_list_sp);
+    </script>
+{{/features}}
+                            
+<style>
+    .badge-big{
+        font-size:150%;
+    }
+    .sp_list{
+        overflow: scroll; 
+        height:80% ; 
+        display:block;
+        list-style-type:square;
+    }
+</style>

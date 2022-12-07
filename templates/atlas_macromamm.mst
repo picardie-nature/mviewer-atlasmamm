@@ -1,0 +1,42 @@
+{{#features}}
+    <li> Secteur : {{area_code}}</li>
+    <li>Nombre d'espèces de macro-mammifères connues : <span class="badge badge-big">{{nb_sp_macro}}</span> <hr /> </li>
+    <span class="sp_list" id='data_espece_macro_{{area_code}}'></span>
+    <script>
+        var data_espece={{{detail_especes}}};
+        data_espece.sort(function(a,b){
+                return a.nom_vern > b.nom_vern;
+            });
+        function parse_period_obs(first,last){
+            if(first != last){
+                return first+' - '+last
+            }
+            return first
+        };
+        var html_list_sp='';
+        data_espece.forEach(function(item){
+           if(item && item.groupe=='Macro-mammifères'){ 
+                html_list_sp+='<li>- '+
+                                '<a href=https://clicnat.fr/espece/'+item.cd_nom.toString()+' target=_blank><b>'+
+                                   (item.nom_vern || '') +
+                                   '</b> (<i>'+item.lb_nom+'</i>)'+
+                                '</a> '+
+                                parse_period_obs(item.first_obs, item.last_obs)
+                             '</li>';
+                 };
+            });
+        $('#data_espece_macro_{{area_code}}').html(html_list_sp);
+    </script>
+{{/features}}
+                            
+<style>
+    .badge-big{
+        font-size:150%;
+    }
+    .sp_list{
+        overflow: scroll; 
+        height:80% ; 
+        display:block;
+        list-style-type:square;
+    }
+</style>
